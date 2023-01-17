@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>web第一周</title>
+    <link href="/2023/01/15/web%E7%AC%AC%E4%B8%80%E5%91%A8/"/>
+    <url>/2023/01/15/web%E7%AC%AC%E4%B8%80%E5%91%A8/</url>
+    
+    <content type="html"><![CDATA[<h1 id="rce2-无字母数字绕过"><a href="#rce2-无字母数字绕过" class="headerlink" title="rce2 (无字母数字绕过)"></a>rce2 (无字母数字绕过)</h1><p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/image.2i94qo6in3w0.webp" alt="image"></p><span id="more"></span><h2 id="相关基础知识的了解"><a href="#相关基础知识的了解" class="headerlink" title="相关基础知识的了解"></a>相关基础知识的了解</h2><p>preg_match( )函数：<a href="https://www.php.cn/php-weizijiaocheng-381228.html">php正则表达式中preg_match函数的详解-php教程-PHP中文网</a> </p><p>正则表达式：<a href="https://www.runoob.com/regexp/regexp-tutorial.html">正则表达式 – 教程 | 菜鸟教程 (runoob.com)</a></p><h2 id="题目内容理解"><a href="#题目内容理解" class="headerlink" title="题目内容理解"></a>题目内容理解</h2><p>题目中*preg_match()*过滤了<strong>a-z，0-9，A-Z</strong>字符，</p><p>而用*eval($code)*探索flag需要上述字符，</p><p>因此需要构造其他字符的变换(异或、或、取反等)以实现所需字符的变相输入。</p><h2 id="操作过程"><a href="#操作过程" class="headerlink" title="操作过程"></a>操作过程</h2><p>字符位运算无需多说，</p><p>使用文章<a href="https://blog.csdn.net/miuzzx/article/details/109143413"> 无字母数字绕过正则表达式总结（含上传临时文件、异或、或、取反、自增脚本）_yu22x的博客</a> 上的格式多次尝试，  </p><p>但是网页一片空白。</p><p>浏览别人的博客后，得知要使用<code>$&#123;_GET&#125;[a]($&#123;_GET&#125;[b]);&amp;a=***$b=***</code>格式  </p><p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/rce2ffff.3gwo54ngd420.webp" alt="rce2ffff">于是<img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/image.6e7j92zb3sg0.webp" alt="image"> </p><p>payload：<code>?code=$&#123;~%a0%b8%ba%ab&#125;[%aa]($&#123;~%a0%b8%ba%ab&#125;[%bb]);&amp;%aa=system&amp;%bb=cd%20/;cat ffffllllaaaagggg</code></p><h1 id="easy-ssit"><a href="#easy-ssit" class="headerlink" title="easy_ssit"></a>easy_ssit</h1><p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/image.24no0lg8giow.webp" alt="imagegg">  </p><p><a href="https://www.freebuf.com/articles/web/279670.html">从0到1:Flask SSTI(服务器模板注入)</a>  </p><h2 id="题目内容理解-1"><a href="#题目内容理解-1" class="headerlink" title="题目内容理解"></a>题目内容理解</h2>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>web</tag>
+      
+      <tag>第一周</tag>
+      
+      <tag>寒假</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>my-first-blog</title>
+    <link href="/2023/01/15/my-first-blog/"/>
+    <url>/2023/01/15/my-first-blog/</url>
+    
+    <content type="html"><![CDATA[<h1 id="新年快乐"><a href="#新年快乐" class="headerlink" title="新年快乐"></a>新年快乐</h1><hr><span id="more"></span><h2 id="Markdown体验还不错"><a href="#Markdown体验还不错" class="headerlink" title="Markdown体验还不错"></a>Markdown体验还不错</h2><hr><p>但是感觉下划线不是很明显啊。  </p><h1 id="新的尝试"><a href="#新的尝试" class="headerlink" title="新的尝试"></a>新的尝试</h1><p><strong>粗体</strong>与<em>斜体</em>  </p><h1 id="标题加粗会怎样"><a href="#标题加粗会怎样" class="headerlink" title="标题加粗会怎样"></a><strong>标题加粗会怎样</strong></h1><h2 id="不会怎样"><a href="#不会怎样" class="headerlink" title="不会怎样"></a>不会怎样</h2><hr><h1 id="神奇的引用"><a href="#神奇的引用" class="headerlink" title="神奇的引用"></a>神奇的引用</h1><blockquote><p>神奇的引用  </p><blockquote><p>神奇的引用</p><p><em>神奇的引用</em></p><ul><li>神奇的引用</li></ul></blockquote></blockquote><h1 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h1><hr><p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/badgirl.5nlodbxdey80.webp" alt="badgirl"></p><h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p><code>安徽</code></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>初体验</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
