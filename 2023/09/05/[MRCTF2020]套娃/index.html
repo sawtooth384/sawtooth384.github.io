@@ -23,20 +23,20 @@
 <meta property="og:site_name" content="sawtooth384的博客">
 <meta property="og:description" content="[MRCTF2020]套娃先看页面源代码，发现有代码注释：  12345678$query &#x3D; $_SERVER[&amp;#x27;QUERY_STRING&amp;#x27;]; if( substr_count($query, &amp;#x27;_&amp;#x27;) !&#x3D;&#x3D; 0 || substr_count($query, &amp;#x27;%5f&amp;#x27;) !&#x3D; 0 )&amp;#123;    die(&amp;#x27;Y0u">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/2023090501.6ntjcld4z0s0.png">
-<meta property="og:image" content="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/2023090502.6ukjogue99o0.png">
-<meta property="og:image" content="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/2023090503.5ki7rsypwl40.webp">
-<meta property="og:image" content="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/20230504.4zo7re19ers0.webp">
-<meta property="og:image" content="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/20230505.2yo0imubqss0.webp">
-<meta property="og:image" content="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/20230506.6qujc55rgp80.webp">
+<meta property="og:image" content="https://github.com/sawtooth384/image/raw/master/20230905/2023090501.6ntjcld4z0s0.png">
+<meta property="og:image" content="https://github.com/sawtooth384/image/raw/master/20230905/2023090502.6ukjogue99o0.png">
+<meta property="og:image" content="https://github.com/sawtooth384/image/raw/master/20230905/2023090503.5ki7rsypwl40.webp">
+<meta property="og:image" content="https://github.com/sawtooth384/image/raw/master/20230905/20230504.4zo7re19ers0.webp">
+<meta property="og:image" content="https://github.com/sawtooth384/image/raw/master/20230905/20230505.2yo0imubqss0.webp">
+<meta property="og:image" content="https://github.com/sawtooth384/image/raw/master/20230905/20230506.6qujc55rgp80.webp">
 <meta property="article:published_time" content="2023-09-05T02:31:23.000Z">
-<meta property="article:modified_time" content="2023-09-05T03:56:10.717Z">
+<meta property="article:modified_time" content="2023-10-15T12:52:35.765Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="RCE">
 <meta property="article:tag" content="PHP">
 <meta property="article:tag" content="正则">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/2023090501.6ntjcld4z0s0.png">
+<meta name="twitter:image" content="https://github.com/sawtooth384/image/raw/master/20230905/2023090501.6ntjcld4z0s0.png">
   
   
   
@@ -283,7 +283,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年9月5日 中午
+                    本文最后更新于：2023年10月15日 晚上
                   
                 
               </p>
@@ -292,7 +292,7 @@
               <div class="markdown-body">
                 
                 <h1 id="MRCTF2020-套娃"><a href="#MRCTF2020-套娃" class="headerlink" title="[MRCTF2020]套娃"></a>[MRCTF2020]套娃</h1><p>先看页面源代码，发现有代码注释：</p>
-<p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/2023090501.6ntjcld4z0s0.png" alt="2023090501"></p>
+<p><img src="https://github.com/sawtooth384/image/raw/master/20230905/2023090501.6ntjcld4z0s0.png" alt="2023090501"></p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$query</span> = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;QUERY_STRING&#x27;</span>];<br><br> <span class="hljs-keyword">if</span>( <span class="hljs-title function_ invoke__">substr_count</span>(<span class="hljs-variable">$query</span>, <span class="hljs-string">&#x27;_&#x27;</span>) !== <span class="hljs-number">0</span> || <span class="hljs-title function_ invoke__">substr_count</span>(<span class="hljs-variable">$query</span>, <span class="hljs-string">&#x27;%5f&#x27;</span>) != <span class="hljs-number">0</span> )&#123;<br>    <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;Y0u are So cutE!&#x27;</span>);<br>&#125;<br> <span class="hljs-keyword">if</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;b_u_p_t&#x27;</span>] !== <span class="hljs-string">&#x27;23333&#x27;</span> &amp;&amp; <span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/^23333$/&#x27;</span>, <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;b_u_p_t&#x27;</span>]))&#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;you are going to the next ~&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>要传入<code>b_u_p_t</code>参数，但是不能有<code>_</code></p>
@@ -312,19 +312,19 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs url">?b.u.p.t=23333%0a<br></code></pre></td></tr></table></figure>
 
 <p>即可。</p>
-<p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/2023090502.6ukjogue99o0.png" alt="2023090502"></p>
+<p><img src="https://github.com/sawtooth384/image/raw/master/20230905/2023090502.6ukjogue99o0.png" alt="2023090502"></p>
 <p>提示flag在<code>secrettw.php</code></p>
 <p>访问并查看页面源代码：</p>
-<p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/2023090503.5ki7rsypwl40.webp" alt="2023090503"></p>
+<p><img src="https://github.com/sawtooth384/image/raw/master/20230905/2023090503.5ki7rsypwl40.webp" alt="2023090503"></p>
 <p><del>有脏东西</del></p>
 <p>这东西很长，在那一行上双击可快速选中该行。</p>
 <p>这是<code>Jsfuck</code>编码,详情见<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e7246218f424">Jsfuck – 一个很有意思的Javascript特性</a>  </p>
 <p>可以直接使用在线工具解码，比如<a target="_blank" rel="noopener" href="http://www.hiencode.com/jsfuck.html">CTF在线工具-在线JSfuck加密|在线JSfuck解密|JSfuck|JSfuck原理|JSfuck算法 (hiencode.com)</a></p>
 <p>也可以将其复制到浏览器控制台中：</p>
-<p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/20230504.4zo7re19ers0.webp" alt="20230504"></p>
+<p><img src="https://github.com/sawtooth384/image/raw/master/20230905/20230504.4zo7re19ers0.webp" alt="20230504"></p>
 <p><strong>post me Merak</strong>  </p>
 <p>用post方法传入一个名为<strong>Merak</strong>的变量，变量值随意。</p>
-<p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/20230505.2yo0imubqss0.webp" alt="20230505"></p>
+<p><img src="https://github.com/sawtooth384/image/raw/master/20230905/20230505.2yo0imubqss0.webp" alt="20230505"></p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>); <br><span class="hljs-keyword">include</span> <span class="hljs-string">&#x27;takeip.php&#x27;</span>;<br><span class="hljs-title function_ invoke__">ini_set</span>(<span class="hljs-string">&#x27;open_basedir&#x27;</span>,<span class="hljs-string">&#x27;.&#x27;</span>); <br><span class="hljs-keyword">include</span> <span class="hljs-string">&#x27;flag.php&#x27;</span>;<br><br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;Merak&#x27;</span>]))&#123; <br>    <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>); <br>    <span class="hljs-keyword">die</span>(); <br>&#125; <br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">change</span>(<span class="hljs-params"><span class="hljs-variable">$v</span></span>)</span>&#123; <br>    <span class="hljs-variable">$v</span> = <span class="hljs-title function_ invoke__">base64_decode</span>(<span class="hljs-variable">$v</span>); <br>    <span class="hljs-variable">$re</span> = <span class="hljs-string">&#x27;&#x27;</span>; <br>    <span class="hljs-keyword">for</span>(<span class="hljs-variable">$i</span>=<span class="hljs-number">0</span>;<span class="hljs-variable">$i</span>&lt;<span class="hljs-title function_ invoke__">strlen</span>(<span class="hljs-variable">$v</span>);<span class="hljs-variable">$i</span>++)&#123; <br>        <span class="hljs-variable">$re</span> .= <span class="hljs-title function_ invoke__">chr</span> ( <span class="hljs-title function_ invoke__">ord</span> (<span class="hljs-variable">$v</span>[<span class="hljs-variable">$i</span>]) + <span class="hljs-variable">$i</span>*<span class="hljs-number">2</span> ); <br>    &#125; <br>    <span class="hljs-keyword">return</span> <span class="hljs-variable">$re</span>; <br>&#125;<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;Local access only!&#x27;</span>.<span class="hljs-string">&quot;&lt;br/&gt;&quot;</span>;<br><span class="hljs-variable">$ip</span> = <span class="hljs-title function_ invoke__">getIp</span>();<br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$ip</span>!=<span class="hljs-string">&#x27;127.0.0.1&#x27;</span>)         <span class="hljs-comment">#ip检测</span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Sorry,you don&#x27;t have permission!  Your ip is :&quot;</span>.<span class="hljs-variable">$ip</span>;<br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$ip</span> === <span class="hljs-string">&#x27;127.0.0.1&#x27;</span> &amp;&amp; <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;2333&#x27;</span>]) === <span class="hljs-string">&#x27;todat is a happy day&#x27;</span> )&#123;  <br>    <span class="hljs-comment">#考察php伪协议</span><br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;Your REQUEST is:&quot;</span>.<span class="hljs-title function_ invoke__">change</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]); <br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">file_get_contents</span>(<span class="hljs-title function_ invoke__">change</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>])); &#125;    <span class="hljs-comment">#代码逆向</span><br><span class="hljs-meta">?&gt;</span>  <br></code></pre></td></tr></table></figure>
 
 <h2 id="过ip检测"><a href="#过ip检测" class="headerlink" title="过ip检测"></a>过ip检测</h2><p>添加报文，据我所知有两种方法</p>
@@ -343,7 +343,7 @@
 <h2 id="代码逆向"><a href="#代码逆向" class="headerlink" title="代码逆向"></a>代码逆向</h2><p>我用python写了个<code>change()</code>的逆向函数：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"> <br><span class="hljs-comment"># function change($v)&#123; </span><br><span class="hljs-comment">#     $v = base64_decode($v); </span><br><span class="hljs-comment">#     $re = &#x27;&#x27;; </span><br><span class="hljs-comment">#     for($i=0;$i&lt;strlen($v);$i++)&#123; </span><br><span class="hljs-comment">#         $re .= chr ( ord ($v[$i]) + $i*2 ); </span><br><span class="hljs-comment">#     &#125; </span><br><span class="hljs-comment">#     return $re; </span><br><span class="hljs-comment"># &#125; </span><br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">change</span>(<span class="hljs-params">v</span>):<br>    re=<span class="hljs-string">&#x27;&#x27;</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(v)):<br>        re += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(v[i]) - i*<span class="hljs-number">2</span>); <br>    re=base64.b64encode(re.encode())<br>    <span class="hljs-keyword">return</span> re.decode()<br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    s=<span class="hljs-string">&quot;flag.php&quot;</span>   <br>    <span class="hljs-built_in">print</span>(change(s))<br><span class="hljs-comment">#ZmpdYSZmXGI=</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h2><p><img src="https://cdn.staticaly.com/gh/sawtooth384/image@master/20230905/20230506.6qujc55rgp80.webp" alt="20230506"></p>
+<h2 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h2><p><img src="https://github.com/sawtooth384/image/raw/master/20230905/20230506.6qujc55rgp80.webp" alt="20230506"></p>
 <h2 id="参考（引用）"><a href="#参考（引用）" class="headerlink" title="参考（引用）"></a>参考（引用）</h2><p>[<a target="_blank" rel="noopener" href="https://blog.csdn.net/RABCDXB/article/details/118917303">MRCTF2020]套娃_ctf套娃密码_Sk1y的博客-CSDN博客</a>  </p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/20175211lyz/p/12198258.html">preg_match绕过总结 - MustaphaMond - 博客园 (cnblogs.com)</a>  </p>
 <p><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/language.variables.external.php">PHP: 来自 PHP 之外的变量 - Manual</a>  </p>
