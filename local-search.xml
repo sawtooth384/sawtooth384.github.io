@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>SUCTF2018 annonymous</title>
+    <link href="/2024/07/28/SUCTF2018-annonymous/"/>
+    <url>/2024/07/28/SUCTF2018-annonymous/</url>
+    
+    <content type="html"><![CDATA[<h1 id="SUCTF-2018-annonymous"><a href="#SUCTF-2018-annonymous" class="headerlink" title="[SUCTF 2018]annonymous"></a>[SUCTF 2018]annonymous</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-variable">$MY</span> = <span class="hljs-title function_ invoke__">create_function</span>(<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;die(`cat flag.php`);&quot;</span>);   <span class="hljs-comment">//创建匿名函数</span><br><span class="hljs-variable">$hash</span> = <span class="hljs-title function_ invoke__">bin2hex</span>(<span class="hljs-title function_ invoke__">openssl_random_pseudo_bytes</span>(<span class="hljs-number">32</span>));   <span class="hljs-comment">//生成随机哈希值</span><br><span class="hljs-keyword">eval</span>(<span class="hljs-string">&quot;function SUCTF_<span class="hljs-subst">$hash</span>()&#123;&quot;</span>               <span class="hljs-comment">//定义一个函数</span><br>    .<span class="hljs-string">&quot;global \$MY;&quot;</span><br>    .<span class="hljs-string">&quot;\$MY();&quot;</span><br>    .<span class="hljs-string">&quot;&#125;&quot;</span>);<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;func_name&#x27;</span>]))&#123;<br>    <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;func_name&quot;</span>]();<br>    <span class="hljs-keyword">die</span>();<br>&#125;<br><span class="hljs-title function_ invoke__">show_source</span>(<span class="hljs-keyword">__FILE__</span>);<br></code></pre></td></tr></table></figure><p>目的很明确</p><p>用<code>$_GET[&quot;func_name&quot;]();</code> 通过执行<code>SUCTF_$hash()</code>进而执行 <code>$MY = create_function(&quot;&quot;,&quot;die(`cat flag.php`);&quot;);</code>创建的匿名函数</p><p>但是<code>$hash</code>得不到，无法执行<code>SUCTF_$hash()</code></p><p><code>create_function()</code>函数在创建之后会生成一个函数名为：<code>%00lambda_[1-···] </code>  后面的数字是递增的</p><p>因此创建的匿名函数其实是有名字的，例如<code>%00lambda_1</code> 、<code>%00lambda_13  </code> 、<code> %00lambda_55</code></p><p>因此可以绕过<code>SUCTF_$hash()</code>，直接执行匿名函数</p><p>这里有两种方法，</p><p>第一种是直接爆破，这个很简单就不多说了</p><p>第二种是通过大量的请求来迫使<code>Pre-fork</code>模式启动，Apache启动新的线程，这样这里的函数名后面的数字会刷新为1</p><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>Apache服务器的<code>Pre-fork</code>模式意味着在服务器启动时，就会预先创建一定数量的子进程（工作进程），用于处理客户端的请求。</p><p>我们可以通过发送大量请求来增加服务器的负载。</p><p>如果请求足够多，将会耗尽所有预先创建的子进程。</p><p>这时，Apache服务器会启动新的子进程来处理额外的负载</p><p>启动新的子进程时，用于生成函数名的计数器将会重置</p><p><code>%00lambda_[1-···] </code>  后面的数字会从1开始重新计数。</p><p><img src="https://s2.loli.net/2024/07/28/h4vr8KjOyecHRga.png"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>web</tag>
+      
+      <tag>php</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>强网杯2019 Upload</title>
     <link href="/2024/07/22/%5B%E5%BC%BA%E7%BD%91%E6%9D%AF2019%5D%20Upload/"/>
     <url>/2024/07/22/%5B%E5%BC%BA%E7%BD%91%E6%9D%AF2019%5D%20Upload/</url>
