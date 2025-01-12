@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>关于GZCTF平台ip更改后题目容器ip未变的解决办法</title>
+    <link href="/2025/01/12/%E5%85%B3%E4%BA%8EGZCTF%E5%B9%B3%E5%8F%B0ip%E6%9B%B4%E6%94%B9%E5%90%8E%E9%A2%98%E7%9B%AE%E5%AE%B9%E5%99%A8ip%E6%9C%AA%E5%8F%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
+    <url>/2025/01/12/%E5%85%B3%E4%BA%8EGZCTF%E5%B9%B3%E5%8F%B0ip%E6%9B%B4%E6%94%B9%E5%90%8E%E9%A2%98%E7%9B%AE%E5%AE%B9%E5%99%A8ip%E6%9C%AA%E5%8F%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<h1 id="关于GZCTF平台ip更改后题目容器ip未变的解决办法"><a href="#关于GZCTF平台ip更改后题目容器ip未变的解决办法" class="headerlink" title="关于GZCTF平台ip更改后题目容器ip未变的解决办法"></a>关于GZCTF平台ip更改后题目容器ip未变的解决办法</h1><p>将<code>appsettings.json</code>中的<code>PublicEntry</code>值改为当前<code>ip</code></p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250112115801754.png" alt="image-20250112115801754"></p><p>执行</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl daemon-reload<br>systemctl restart docker<br></code></pre></td></tr></table></figure><p>解决。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>solution</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>xhcms代码审计</title>
     <link href="/2024/11/24/xhcms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     <url>/2024/11/24/xhcms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</url>
