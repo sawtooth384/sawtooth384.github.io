@@ -16,24 +16,36 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="关于GZCTF平台ip更改后题目容器ip未变的解决办法将appsettings.json中的PublicEntry值改为当前ip  执行 12systemctl daemon-reloadsystemctl restart docker  解决。">
+    <meta name="description" content="逆向分析实验2 OllyDbg的使用查找main()函数单步跟踪先一直使用F8单步步过，发现运行了401144处的函数调用后出现弹窗：  重新运行，并用命令bp 401144在目标函数位置打上断点 运行到断点后F7单步步入  此函数中调用了MessageBox()函数，并且存在MessageBox()函数中出现的Hello World!和www.reversecore.com字符串 因此可以确定此">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于GZCTF平台ip更改后题目容器ip未变的解决办法">
-<meta property="og:url" content="http://example.com/2025/01/12/%E5%85%B3%E4%BA%8EGZCTF%E5%B9%B3%E5%8F%B0ip%E6%9B%B4%E6%94%B9%E5%90%8E%E9%A2%98%E7%9B%AE%E5%AE%B9%E5%99%A8ip%E6%9C%AA%E5%8F%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/index.html">
+<meta property="og:title" content="逆向分析实验2 OllyDbg的使用">
+<meta property="og:url" content="http://example.com/2025/03/01/%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E5%AE%9E%E9%AA%8C2%20OllyDbg%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="sawtooth384的博客">
-<meta property="og:description" content="关于GZCTF平台ip更改后题目容器ip未变的解决办法将appsettings.json中的PublicEntry值改为当前ip  执行 12systemctl daemon-reloadsystemctl restart docker  解决。">
+<meta property="og:description" content="逆向分析实验2 OllyDbg的使用查找main()函数单步跟踪先一直使用F8单步步过，发现运行了401144处的函数调用后出现弹窗：  重新运行，并用命令bp 401144在目标函数位置打上断点 运行到断点后F7单步步入  此函数中调用了MessageBox()函数，并且存在MessageBox()函数中出现的Hello World!和www.reversecore.com字符串 因此可以确定此">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250112115801754.png">
-<meta property="article:published_time" content="2025-01-12T03:25:05.000Z">
-<meta property="article:modified_time" content="2025-01-12T04:00:40.386Z">
+<meta property="og:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301095654175.png">
+<meta property="og:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301100048067.png">
+<meta property="og:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301100722535.png">
+<meta property="og:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301102443581.png">
+<meta property="og:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301102230225.png">
+<meta property="og:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301102307069.png">
+<meta property="og:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301102836661.png">
+<meta property="og:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301102945342.png">
+<meta property="og:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301104951731.png">
+<meta property="og:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301105019385.png">
+<meta property="og:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301105752285.png">
+<meta property="og:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301105852587.png">
+<meta property="og:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301113056362.png">
+<meta property="article:published_time" content="2025-03-01T03:42:58.000Z">
+<meta property="article:modified_time" content="2025-03-01T03:41:15.359Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="solution">
+<meta property="article:tag" content="实验">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250112115801754.png">
+<meta name="twitter:image" content="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301095654175.png">
   
   
   
-  <title>关于GZCTF平台ip更改后题目容器ip未变的解决办法 - sawtooth384的博客</title>
+  <title>逆向分析实验2 OllyDbg的使用 - sawtooth384的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +211,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">关于GZCTF平台ip更改后题目容器ip未变的解决办法</span>
+            <span id="subtitle">逆向分析实验2 OllyDbg的使用</span>
           
         </div>
 
@@ -210,8 +222,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-01-12 11:25" pubdate>
-          2025年1月12日 上午
+        <time datetime="2025-03-01 11:42" pubdate>
+          2025年3月1日 中午
         </time>
       </span>
     
@@ -222,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          115 字
+          2.5k 字
         
       </span>
     
@@ -233,7 +245,7 @@
         
         
         
-          1 分钟
+          21 分钟
         
       </span>
     
@@ -271,12 +283,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">关于GZCTF平台ip更改后题目容器ip未变的解决办法</h1>
+            <h1 style="display: none">逆向分析实验2 OllyDbg的使用</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2025年1月12日 中午
+                    本文最后更新于：2025年3月1日 中午
                   
                 
               </p>
@@ -284,12 +296,45 @@
             
               <div class="markdown-body">
                 
-                <h1 id="关于GZCTF平台ip更改后题目容器ip未变的解决办法"><a href="#关于GZCTF平台ip更改后题目容器ip未变的解决办法" class="headerlink" title="关于GZCTF平台ip更改后题目容器ip未变的解决办法"></a>关于GZCTF平台ip更改后题目容器ip未变的解决办法</h1><p>将<code>appsettings.json</code>中的<code>PublicEntry</code>值改为当前<code>ip</code></p>
-<p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250112115801754.png" alt="image-20250112115801754"></p>
-<p>执行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">systemctl daemon-reload<br>systemctl restart docker<br></code></pre></td></tr></table></figure>
+                <h1 id="逆向分析实验2-OllyDbg的使用"><a href="#逆向分析实验2-OllyDbg的使用" class="headerlink" title="逆向分析实验2 OllyDbg的使用"></a>逆向分析实验2 OllyDbg的使用</h1><h2 id="查找main-函数"><a href="#查找main-函数" class="headerlink" title="查找main()函数"></a>查找main()函数</h2><h3 id="单步跟踪"><a href="#单步跟踪" class="headerlink" title="单步跟踪"></a>单步跟踪</h3><p>先一直使用F8单步步过，发现运行了<code>401144</code>处的函数调用后出现弹窗：</p>
+<p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301095654175.png" alt="image-20250301095654175"></p>
+<p>重新运行，并用命令<code>bp 401144</code>在目标函数位置打上断点</p>
+<p>运行到断点后F7单步步入</p>
+<p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301100048067.png" alt="image-20250301100048067"></p>
+<p>此函数中调用了<code>MessageBox()</code>函数，并且存在<code>MessageBox()</code>函数中出现的<code>Hello World!</code>和<code>www.reversecore.com</code>字符串</p>
+<p>因此可以确定此函数为<code>main</code>函数，位置为<code>401144</code></p>
+<h3 id="字符串检索"><a href="#字符串检索" class="headerlink" title="字符串检索"></a>字符串检索</h3><p>单击右键-&gt;查找-&gt;所有参考文本字串，找到引用“Hello World!”的地址</p>
+<p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301100722535.png" alt="image-20250301100722535"></p>
+<p>双击定位到<code>main()</code>函数中调用<code>MessageBox()</code>函数的代码处，F2设置断点，F9命令运行到该处</p>
+<p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301102443581.png" alt="image-20250301102443581"></p>
+<p>在断点窗口查看设置的断点信息</p>
+<p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301102230225.png" alt="image-20250301102230225"></p>
+<p>在数据窗口中使用<code>Ctrl+G</code>，输入反汇编代码中的地址<code>4092a0</code>，查看该地址处的字符串</p>
+<p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301102307069.png" alt="image-20250301102307069"></p>
+<h3 id="API检索"><a href="#API检索" class="headerlink" title="API检索"></a>API检索</h3><p>单击右键-&gt;查找-&gt;所有模块间的调用，列出程序调用的所有API，找到<code>MessageBoxW()</code>的地址</p>
+<p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301102836661.png" alt="image-20250301102836661"></p>
+<p>双击后，定位到<code>main()</code>函数中调用<code>MessageBox()</code>函数的代码处</p>
+<p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301102945342.png" alt="image-20250301102945342"></p>
+<h2 id="修改“Hello-World-”字符串"><a href="#修改“Hello-World-”字符串" class="headerlink" title="修改“Hello World!”字符串"></a>修改“Hello World!”字符串</h2><h3 id="直接修改字符串缓冲区"><a href="#直接修改字符串缓冲区" class="headerlink" title="直接修改字符串缓冲区"></a>直接修改字符串缓冲区</h3><p>用上面“字符串检索”中的方法找到<code>Hello World!</code>字符串保存的地址，在数据窗口直接编辑修改该段缓冲区的内容为<code>Hello Reversing!</code></p>
+<p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301104951731.png" alt="image-20250301104951731"></p>
+<p>运行程序后，弹出消息窗口，可以看到显示出新的字符串</p>
+<p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301105019385.png" alt="image-20250301105019385"></p>
+<h3 id="在其他内存区域新建字符串并传递给消息函数"><a href="#在其他内存区域新建字符串并传递给消息函数" class="headerlink" title="在其他内存区域新建字符串并传递给消息函数"></a>在其他内存区域新建字符串并传递给消息函数</h3><p>在程序未使用的NULL填充区域找到一个适当位置，写入新字符串<code>Hello Reversing World!!!</code>，并把新建的缓冲区的地址作为参数传递给<code>MessageBoxW()</code>函数</p>
+<p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301105752285.png" alt="image-20250301105752285"></p>
+<p>运行程序后，弹出消息窗口，可以看到显示出新的字符串</p>
+<p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301105852587.png" alt="image-20250301105852587"></p>
+<h2 id="破解abexcm1-voiees-exe程序"><a href="#破解abexcm1-voiees-exe程序" class="headerlink" title="破解abexcm1-voiees.exe程序"></a>破解abexcm1-voiees.exe程序</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs assembly">00401000 &gt;/$  6A 00         push 0x0                                 ; /Style = MB_OK|MB_APPLMODAL<br>00401002  |.  68 00204000   push abexcm1-.00402000                   ; |Title = &quot;abex&#x27; 1st crackme&quot;<br>00401007  |.  68 12204000   push abexcm1-.00402012                   ; |Text = &quot;Make me think your HD is a CD-Rom.&quot;<br>0040100C  |.  6A 00         push 0x0                                 ; |hOwner = NULL<br>0040100E  |.  E8 4E000000   call &lt;jmp.&amp;USER32.MessageBoxA&gt;           ; \MessageBoxA<br>00401013  |.  68 94204000   push abexcm1-.00402094                   ; /RootPathName = &quot;c:\&quot;<br>00401018  |.  E8 38000000   call &lt;jmp.&amp;KERNEL32.GetDriveTypeA&gt;       ; \GetDriveTypeA<br>0040101D  |.  46            inc esi<br>0040101E  |.  48            dec eax<br>0040101F  |.  EB 00         jmp short abexcm1-.00401021<br>00401021  |&gt;  46            inc esi<br>00401022  |.  46            inc esi<br>00401023  |.  48            dec eax<br>00401024  |.  3BC6          cmp eax,esi<br>00401026  |.  74 15         je short abexcm1-.0040103D<br>00401028  |.  6A 00         push 0x0                                 ; /Style = MB_OK|MB_APPLMODAL<br>0040102A  |.  68 35204000   push abexcm1-.00402035                   ; |Title = &quot;Error&quot;<br>0040102F  |.  68 3B204000   push abexcm1-.0040203B                   ; |Text = &quot;Nah... This is not a CD-ROM Drive!&quot;<br>00401034  |.  6A 00         push 0x0                                 ; |hOwner = NULL<br>00401036  |.  E8 26000000   call &lt;jmp.&amp;USER32.MessageBoxA&gt;           ; \MessageBoxA<br>0040103B  |.  EB 13         jmp short abexcm1-.00401050<br>0040103D  |&gt;  6A 00         push 0x0                                 ; |/Style = MB_OK|MB_APPLMODAL<br>0040103F  |.  68 5E204000   push abexcm1-.0040205E                   ; ||Title = &quot;YEAH!&quot;<br>00401044  |.  68 64204000   push abexcm1-.00402064                   ; ||Text = &quot;Ok, I really think that your HD is a CD-ROM! :p&quot;<br>00401049  |.  6A 00         push 0x0                                 ; ||hOwner = NULL<br>0040104B  |.  E8 11000000   call &lt;jmp.&amp;USER32.MessageBoxA&gt;           ; |\MessageBoxA<br>00401050  \&gt;  E8 06000000   call &lt;jmp.&amp;KERNEL32.ExitProcess&gt;         ; \ExitProcess<br></code></pre></td></tr></table></figure>
 
-<p>解决。</p>
+<p>运行源程序后会弹出消息窗口<code>Make me think your HD is a CD-Rom</code>消息，点击确定后，弹出Error消息<code>Nah…This is not a CD-ROM Drive!</code>。</p>
+<p>我们的目的是尝试破解这个程序，使得点击确定后，弹出正确的输出。</p>
+<p>我注意到<code>0040101F</code>有一个无意义的跳转指令（跳转到下一行指令）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">0040101F  |.  EB 00         jmp short abexcm1-.00401021<br></code></pre></td></tr></table></figure>
+
+<p>这个跳转指令是在第一次弹窗点击确定后、第二次弹窗之前执行的</p>
+<p>或许可以更改跳转地址，使其直接转到弹出正确的输出的代码</p>
+<p>更改其跳转地址为<code>0040103D</code>（弹出正确输出的代码）</p>
+<p>成功</p>
+<p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/image-20250301113056362.png" alt="image-20250301113056362"></p>
 
                 
               </div>
@@ -302,7 +347,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/solution/">#solution</a>
+        <a href="/tags/%E5%AE%9E%E9%AA%8C/">#实验</a>
       
     </div>
   
@@ -314,8 +359,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>关于GZCTF平台ip更改后题目容器ip未变的解决办法</div>
-      <div>http://example.com/2025/01/12/关于GZCTF平台ip更改后题目容器ip未变的解决办法/</div>
+      <div>逆向分析实验2 OllyDbg的使用</div>
+      <div>http://example.com/2025/03/01/逆向分析实验2 OllyDbg的使用/</div>
     </div>
     <div class="license-meta">
       
@@ -327,7 +372,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年1月12日</div>
+          <div>2025年3月1日</div>
         </div>
       
       
@@ -359,18 +404,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/03/01/%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E5%AE%9E%E9%AA%8C2%20OllyDbg%E7%9A%84%E4%BD%BF%E7%94%A8/" title="逆向分析实验2 OllyDbg的使用">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">逆向分析实验2 OllyDbg的使用</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/24/xhcms%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" title="xhcms代码审计">
-                        <span class="hidden-mobile">xhcms代码审计</span>
+                      <a href="/2025/01/12/%E5%85%B3%E4%BA%8EGZCTF%E5%B9%B3%E5%8F%B0ip%E6%9B%B4%E6%94%B9%E5%90%8E%E9%A2%98%E7%9B%AE%E5%AE%B9%E5%99%A8ip%E6%9C%AA%E5%8F%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" title="关于GZCTF平台ip更改后题目容器ip未变的解决办法">
+                        <span class="hidden-mobile">关于GZCTF平台ip更改后题目容器ip未变的解决办法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
