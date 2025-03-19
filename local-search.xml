@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>逆向分析实验4 手动脱壳</title>
+    <link href="/2025/03/19/%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E5%AE%9E%E9%AA%8C4%20%E6%89%8B%E5%8A%A8%E8%84%B1%E5%A3%B3/"/>
+    <url>/2025/03/19/%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E5%AE%9E%E9%AA%8C4%20%E6%89%8B%E5%8A%A8%E8%84%B1%E5%A3%B3/</url>
+    
+    <content type="html"><![CDATA[<h1 id="手动脱壳"><a href="#手动脱壳" class="headerlink" title="手动脱壳"></a>手动脱壳</h1><h2 id="查找尾部跳转指令"><a href="#查找尾部跳转指令" class="headerlink" title="查找尾部跳转指令"></a>查找尾部跳转指令</h2><p><strong>使用OllyDbg分析Lab18-01.exe程序，通过查找尾部跳转指令JMP找到程序的入口点OEP，完成手动脱壳</strong></p><p>在下面发现尾部跳转指令</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-1.png" alt="image-20250319161636809"></p><p>F4运行到此处后，F8步入跳转，找到入口点<code>0040154f</code></p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-2.png" alt="image-20250319161940992"></p><p>脱壳</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-3.png" alt="image-20250319162120613"></p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-4.png" alt="image-20250319162242391"></p><p>运行生成的exe文件</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-5.png" alt="image-20250319162407812"></p><p>打开<code>ImportREC</code>  选择刚运行的进程，依次点击 <strong>自动搜索</strong> <strong>获取输入表</strong> <strong>修复转存文件</strong>即可</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-6.png" alt="image-20250319162800690"></p><p>用PEID检查，脱壳成功</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-7.png" alt="image-20250319162923099"></p><h2 id="堆栈平衡原理"><a href="#堆栈平衡原理" class="headerlink" title="堆栈平衡原理"></a>堆栈平衡原理</h2><p><strong>使用OllyDbg分析Lab18-03.exe程序，通过堆栈平衡原理使用pushad、popad和硬件断点，找到程序的入口点OEP，完成手动脱壳</strong></p><p>发现pushfd和pushad</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-8.png" alt="image-20250319163213154"></p><p>F8运行到pushfd和pushad下面的call指令处，右键右边的ESP寄存器，点击数据窗口跟随</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-9.png" alt="image-20250319163714561"></p><p>选择四个字节，打上硬件访问断点</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-10.png" alt="image-20250319163852939"></p><p>F9运行即来到断点位置</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-11.png" alt="image-20250319164222175"></p><p>F8步过一直到retn处跳转后来到入口点，按ctrl+a分析代码</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-12.png" alt="image-20250319164426942"></p><p>脱壳，注意OllyDump时不要勾选下面的“重建输入表”，否则会直接重建成功，使exe文件快速运行完毕导致ImportREC无法捕捉进程</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-14.png" alt="image-20250319165225722"></p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-15.png" alt="image-20250319165510220"></p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-16.png" alt="image-20250319165825700"></p><h2 id="ESP定律"><a href="#ESP定律" class="headerlink" title="ESP定律"></a>ESP定律</h2><p><strong>使用OllyDbg分析Lab18-04.exe程序，通过ESP定律找到程序的入口点OEP，完成手动脱壳</strong></p><p>先F8直到通用寄存器只有ESP为红色时</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-17.png" alt="image-20250319170508743"></p><p>右键ESP，选择HW break [ESP]</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-18.png" alt="image-20250319170607251"></p><p>然后F9运行</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-19.png" alt="image-20250319170806782"></p><p>F8单步，发现retn返回到入口点，ctrl+a分析</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-20.png" alt="image-20250319170956853"></p><p>脱壳</p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-21.png" alt="image-20250319171045883"></p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-22.png" alt="image-20250319171150987"></p><p><img src="https://cl0v3.obs.cn-east-3.myhuaweicloud.com/img/blog/%E9%80%86%E5%90%91%E5%AE%9E%E9%AA%8C4-23.png" alt="image-20250319171243236"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>实验</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>THM CyberLens</title>
     <link href="/2025/03/08/%5BTHM%5DCyberLens/"/>
     <url>/2025/03/08/%5BTHM%5DCyberLens/</url>
@@ -272,9 +291,9 @@
     
     <tags>
       
-      <tag>web</tag>
-      
       <tag>RCE</tag>
+      
+      <tag>web</tag>
       
     </tags>
     
